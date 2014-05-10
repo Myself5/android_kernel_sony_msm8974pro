@@ -21,7 +21,11 @@ obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSV2)   += cpufreq_smartass2.o
 >>>>>>> fddf50f... added new cpufreq governor SmartAssv2 (thanks to @Erasmux, @faux123 & @androdguide)
 =======
 obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)    += cpufreq_lionheart.o
+<<<<<<< HEAD
 >>>>>>> 4392fc6... added new cpufreq governor LionHeart (thanks to @knzo & @androdguide)
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)      += cpufreq_lagfree.o
+>>>>>>> fd7bc66... added new cpufreq governor LagFree (thanks to @androdguide)
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
