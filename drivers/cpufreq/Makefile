@@ -11,8 +11,13 @@ obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 obj-$(CONFIG_CPU_FREQ_GOV_ONDEMAND)	+= cpufreq_ondemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_CONSERVATIVE)	+= cpufreq_conservative.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVE)	+= cpufreq_interactive.o
+<<<<<<< HEAD
 
 CFLAGS_cpufreq_interactive.o += -Wno-sequence-point
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_INTELLIACTIVE)+= cpufreq_intelliactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSV2)   += cpufreq_smartass2.o
+>>>>>>> fddf50f... added new cpufreq governor SmartAssv2 (thanks to @Erasmux, @faux123 & @androdguide)
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
