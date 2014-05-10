@@ -17,7 +17,11 @@ CFLAGS_cpufreq_interactive.o += -Wno-sequence-point
 =======
 obj-$(CONFIG_CPU_FREQ_GOV_INTELLIACTIVE)+= cpufreq_intelliactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSV2)   += cpufreq_smartass2.o
+<<<<<<< HEAD
 >>>>>>> fddf50f... added new cpufreq governor SmartAssv2 (thanks to @Erasmux, @faux123 & @androdguide)
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)    += cpufreq_lionheart.o
+>>>>>>> 4392fc6... added new cpufreq governor LionHeart (thanks to @knzo & @androdguide)
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
