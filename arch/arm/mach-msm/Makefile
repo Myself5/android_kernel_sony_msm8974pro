@@ -431,7 +431,6 @@ obj-$(CONFIG_ARCH_MSM8974) += msm_mpmctr.o
 obj-$(CONFIG_MSM_CPR_REGULATOR) += cpr-regulator.o
 obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
 obj-$(CONFIG_MSM_DEVFREQ_CPUBW) += devfreq_cpubw.o
-obj-$(CONFIG_INTELLI_PLUG) += intelli_plug.o
 
 CFLAGS_intelli_plug.o += -Wno-unused-variable
 
