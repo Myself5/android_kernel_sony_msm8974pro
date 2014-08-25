@@ -8,7 +8,10 @@
 # <nico-linuxsetlocalversion -at- schottelius.org>.
 #
 #
+if test "$CONFIG_LOCALVERSION_SET_MANUAL" = "y"; then
+res="-${CONFIG_LOCALVERSION}-${CONFIG_LOCALVERSION_SUBVERSION}"
 
+else
 usage() {
 	echo "Usage: $0 [--save-scmversion] [srctree]" >&2
 	exit 1
@@ -186,6 +189,8 @@ else
 		scm=$(scm_version --short)
 		res="$res${scm:++}"
 	fi
+fi
+
 fi
 
 echo "$res"
