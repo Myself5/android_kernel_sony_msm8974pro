@@ -11,7 +11,6 @@ obj-$(CONFIG_CPU_FREQ_GOV_ONDEMAND)	+= cpufreq_ondemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_CONSERVATIVE)	+= cpufreq_conservative.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVE)	+= cpufreq_interactive.o
 
-CFLAGS_cpufreq_interactive.o -= -Wsequence-point
 CFLAGS_cpufreq_interactive.o += -Wno-sequence-point
 
 # CPUfreq cross-arch helpers
