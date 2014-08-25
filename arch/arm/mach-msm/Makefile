@@ -444,6 +444,8 @@ obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
 obj-$(CONFIG_HAS_MACH_MEMUTILS) += memutils/
 obj-$(CONFIG_MSM_SLEEPER) += msm-sleeper.o
 
+CFLAGS_cpufreq_limit.o += -Wno-unused-variable
+
 obj-$(CONFIG_RAMDUMP_TAGS) += board-rdtags.o
 CFLAGS_board-rdtags.o  := \
 	-D"INFO_PRODUCT=\"$(if $(TARGET_PRODUCT),$(TARGET_PRODUCT),unknown)\"" \
