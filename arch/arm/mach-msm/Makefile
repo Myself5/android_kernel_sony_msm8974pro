@@ -438,11 +438,7 @@ obj-$(CONFIG_WALL_CLK_SYSFS) += wallclk_sysfs.o
 obj-$(CONFIG_ARCH_RANDOM) += early_random.o
 obj-$(CONFIG_PERFMAP) += perfmap.o
 obj-$(CONFIG_MSM_CPUFREQ_LIMITER) += cpufreq_limit.o
-<<<<<<< HEAD
-=======
-obj-$(CONFIG_LCD_KCAL) += msm_kcal_ctrl.o
 obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
->>>>>>> d206da9... Fast Charge: initial adaptation for Galaxy S5 (part 2)
 obj-$(CONFIG_HAS_MACH_MEMUTILS) += memutils/
 obj-$(CONFIG_MSM_SLEEPER) += msm-sleeper.o
 
