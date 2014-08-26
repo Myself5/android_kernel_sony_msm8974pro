@@ -8,6 +8,7 @@
 # <nico-linuxsetlocalversion -at- schottelius.org>.
 #
 #
+
 usage() {
 	echo "Usage: $0 [--save-scmversion] [srctree]" >&2
 	exit 1
@@ -186,8 +187,5 @@ else
 		res="$res${scm:++}"
 	fi
 fi
-
-# Like this it aborts in case of errors but still uses my Kernel Version
-res="-${CONFIG_LOCALVERSION}-${CONFIG_LOCALVERSION_SUBVERSION}"
 
 echo "$res"
