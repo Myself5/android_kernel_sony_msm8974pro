@@ -17,6 +17,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)    += cpufreq_lionheart.o
 obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)      += cpufreq_lagfree.o
 
 CFLAGS_cpufreq_interactive.o += -Wno-sequence-point
+CFLAGS_cpufreq_intelliactive.o += -Wno-sequence-point
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
