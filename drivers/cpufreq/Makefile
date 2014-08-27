@@ -6,26 +6,16 @@ obj-$(CONFIG_CPU_FREQ_STAT)             += cpufreq_stats.o
 # CPUfreq governors 
 obj-$(CONFIG_CPU_FREQ_GOV_PERFORMANCE)	+= cpufreq_performance.o
 obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
-obj-$(CONFIG_CPU_FREQ_GOV_WHEATLEY)     += cpufreq_wheatley.o
 obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 obj-$(CONFIG_CPU_FREQ_GOV_ONDEMAND)	+= cpufreq_ondemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_CONSERVATIVE)	+= cpufreq_conservative.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVE)	+= cpufreq_interactive.o
-<<<<<<< HEAD
+obj-$(CONFIG_CPU_FREQ_GOV_WHEATLEY)     += cpufreq_wheatley.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSV2)   += cpufreq_smartass2.o
+obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)    += cpufreq_lionheart.o
+obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)      += cpufreq_lagfree.o
 
 CFLAGS_cpufreq_interactive.o += -Wno-sequence-point
-=======
-obj-$(CONFIG_CPU_FREQ_GOV_INTELLIACTIVE)+= cpufreq_intelliactive.o
-obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSV2)   += cpufreq_smartass2.o
-<<<<<<< HEAD
->>>>>>> fddf50f... added new cpufreq governor SmartAssv2 (thanks to @Erasmux, @faux123 & @androdguide)
-=======
-obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)    += cpufreq_lionheart.o
-<<<<<<< HEAD
->>>>>>> 4392fc6... added new cpufreq governor LionHeart (thanks to @knzo & @androdguide)
-=======
-obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)      += cpufreq_lagfree.o
->>>>>>> fd7bc66... added new cpufreq governor LagFree (thanks to @androdguide)
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o

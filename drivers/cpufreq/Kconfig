@@ -397,8 +397,6 @@ config CPU_FREQ_WAKEUP_BOOST
 	  This will boost CPU clock frequences during wakeup in order to
 	  minimize wakeup time.
 
-<<<<<<< HEAD
-=======
 config CPU_FREQ_MIN_TICKS
 	int "Ticks between governor polling interval."
 	default 10
@@ -412,24 +410,6 @@ config CPU_FREQ_SAMPLING_LATENCY_MULTIPLIER
 	  Sampling latency rate multiplied by the cpu switch latency.
 	  Affects governor polling. 
 
-config CPU_FREQ_GOV_INTELLIACTIVE
-	tristate "'intelliactive' cpufreq policy governor"
-	help
-	  'intelliactive' - This driver adds a dynamic cpufreq policy governor
-	  designed for latency-sensitive workloads.
-
-	  This governor attempts to reduce the latency of clock
-	  increases so that the system is more responsive to
-	  interactive workloads.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called cpufreq_interactive.
-
-	  For details, take a look at linux/Documentation/cpu-freq.
-
-	  If in doubt, say N.
-
->>>>>>> fd7bc66... added new cpufreq governor LagFree (thanks to @androdguide)
 menu "x86 CPU frequency scaling drivers"
 depends on X86
 source "drivers/cpufreq/Kconfig.x86"
