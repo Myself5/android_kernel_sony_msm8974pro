@@ -24,8 +24,6 @@
 #include <linux/log2.h>
 #include <linux/qpnp/power-on.h>
 
-extern void screenwake_setdev(struct qpnp_pon * pon);
-
 /* Common PNP defines */
 #define QPNP_PON_REVISION2(base)		(base + 0x01)
 #ifdef CONFIG_POWERKEY_FORCECRASH
@@ -1149,17 +1147,6 @@ static int __devinit qpnp_pon_probe(struct spmi_device *spmi)
 			"Unable to intialize PON configurations\n");
 		return rc;
 	}
-
-	sec_powerkey = device_create(sec_class, NULL, 0, NULL, "sec_powerkey");
-	if (IS_ERR(sec_powerkey))
-		pr_err("Failed to create device(sec_powerkey)!\n");
-	ret = device_create_file(sec_powerkey, &dev_attr_sec_powerkey_pressed);
-	if (ret) {
-		pr_err("Failed to create device file in sysfs entries(%s)!\n",
-			dev_attr_sec_powerkey_pressed.attr.name);
-	}
-	dev_set_drvdata(sec_powerkey, pon);
-	screenwake_setdev(pon);
 
 	return rc;
 }
