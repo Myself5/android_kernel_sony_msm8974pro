@@ -350,12 +350,8 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 	mipi  = &pdata->panel_info.mipi;
 
 #ifdef CONFIG_TOUCHSCREEN_DOUBLETAP2WAKE
-	if (d2w_switch) {
-		ctrl->off_cmds.cmds[1].payload[0] = 0x11;
-	} else {
-		ctrl->off_cmds.cmds[1].payload[0] = 0x10;
-	}
-	pr_info("[sweep2wake] payload = %x \n", ctrl->off_cmds.cmds[1].payload[0]);
+	ctrl->off_cmds.cmds[1].payload[0] = 0x11;
+	pr_info("[doubletap2wake] payload = %x \n", ctrl->off_cmds.cmds[1].payload[0]);
 #endif
 
 	if (ctrl->off_cmds.cmd_cnt)
