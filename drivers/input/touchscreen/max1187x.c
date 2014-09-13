@@ -2594,6 +2594,7 @@ static void release_report(struct data *ts)
 
 static void set_suspend_mode(struct data *ts)
 {
+    #if 0
 	u16 cmd_buf[] = {MXM_CMD_ID_SET_POWER_MODE,
 			 MXM_ONE_SIZE_CMD,
 			 MXM_PWR_SLEEP_MODE};
@@ -2618,11 +2619,14 @@ static void set_suspend_mode(struct data *ts)
 	}
 
 	dev_dbg(&ts->client->dev, "%s: Exit\n", __func__);
+    #endif
+
 	return;
 }
 
 static void set_resume_mode(struct data *ts)
 {
+    #if 0
 	dev_info(&ts->client->dev, "%s\n", __func__);
 
 	vreg_suspend(ts, false);
@@ -2637,6 +2641,7 @@ static void set_resume_mode(struct data *ts)
 	ts->is_suspended = false;
 
 	dev_dbg(&ts->client->dev, "%s: Exit\n", __func__);
+    #endif
 
 	return;
 }
