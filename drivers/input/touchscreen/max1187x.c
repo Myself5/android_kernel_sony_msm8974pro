@@ -2703,6 +2703,7 @@ static int fb_notifier_callback(struct notifier_block *self,
 
 static int suspend(struct device *dev)
 {
+    #if 0
 	struct i2c_client *client = to_i2c_client(dev);
 	struct data *ts = i2c_get_clientdata(client);
 
@@ -2722,12 +2723,14 @@ static int suspend(struct device *dev)
 	ts->pm_suspended = true;
 
 	dev_dbg(&ts->client->dev, "%s: Exit\n", __func__);
+    #endif
 
 	return 0;
 }
 
 static int resume(struct device *dev)
 {
+    #if 0
 	struct i2c_client *client = to_i2c_client(dev);
 	struct data *ts = i2c_get_clientdata(client);
 	int ret;
@@ -2752,6 +2755,7 @@ static int resume(struct device *dev)
 	ts->pm_suspended = false;
 
 	dev_dbg(&ts->client->dev, "%s: Exit\n", __func__);
+    #endif
 
 	return 0;
 }
