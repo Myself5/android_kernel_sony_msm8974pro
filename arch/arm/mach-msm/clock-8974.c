@@ -3103,14 +3103,10 @@ static struct rcg_clk csi2phytimer_clk_src = {
 };
 
 static struct clk_freq_tbl ftbl_camss_vfe_cpp_clk[] = {
-#if !defined(CONFIG_SONY_CAM_V4L2)
 	F_MM(150000000,  gpll0,   4,   0,   0),
 	F_MM(266670000, mmpll0,   3,   0,   0),
 	F_MM(320000000, mmpll0, 2.5,   0,   0),
 	F_MM(465000000, mmpll3,   2,   0,   0),
-#else
-	F_MM(465000000, mmpll3,   2,   0,   0),
-#endif
 	F_END
 };
 

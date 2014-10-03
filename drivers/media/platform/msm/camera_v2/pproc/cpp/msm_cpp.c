@@ -145,11 +145,7 @@ static struct msm_cam_clk_info cpp_clk_info[] = {
 	{"vfe_clk_src", 266670000},
 	{"camss_vfe_vfe_clk", -1},
 	{"iface_clk", -1},
-#if defined(CONFIG_SONY_CAM_V4L2)
-	{"cpp_core_clk", 465000000},
-#else
 	{"cpp_core_clk", 266670000},
-#endif
 	{"cpp_iface_clk", -1},
 	{"cpp_bus_clk", -1},
 	{"micro_iface_clk", -1},
