@@ -162,6 +162,8 @@
 #define MXM_FW_UPDATE_DEFAULT 0 /* flashing with dflt_cfg if fw is corrupted */
 #define MXM_FW_UPDATE_FORCE   1 /* force flashing with dflt_cfg */
 
+static int _d2wEnabled = 0;
+
 static const char * const fw_update_mode[] = {
 	[MXM_FW_UPDATE_DEFAULT] = "default",
 	[MXM_FW_UPDATE_FORCE] = "force",
@@ -825,6 +827,8 @@ static void report_wakeup_gesture(struct data *ts,
 
 	dev_dbg(dev, "event: Received gesture: (0x%04X)\n", code);
 
+	printk(KERN_INFO "I AM INTO report_wakeup_gesture");
+	
 	if (time_after(jiffies, ts->ew_timeout))
 		ts->ew_timeout = jiffies + msecs_to_jiffies(
 			ts->pdata->wakeup_gesture_timeout);
@@ -847,9 +851,12 @@ static void process_report(struct data *ts, u16 *buf)
 	if (BYTEH(header->header) != MXM_ONE_PACKET_RPT)
 		goto end;
 
-	if (device_may_wakeup(dev)) {
+	printk(KERN_INFO "I AM IN FRONT OF device_may_wakeup");
+	if (device_can_wakeup(dev)) {
+		printk(KERN_INFO "I AM INSIDE device_may_wakeup");
 		if (header->report_id == MXM_RPT_ID_POWER_MODE
 		    && ts->is_suspended) {
+			printk(KERN_INFO "I AM INSIDE THE IF IN device_may_wakeup");
 			report_wakeup_gesture(ts, header);
 			goto end;
 		}
@@ -909,6 +916,8 @@ static irqreturn_t irq_handler_soft(int irq, void *context)
 	struct data *ts = (struct data *) context;
 	int ret;
 
+	printk(KERN_INFO "I AM INSIDE irq_handler_soft");
+	
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
 	mutex_lock(&ts->i2c_mutex);
@@ -1368,6 +1377,25 @@ static int max1187x_set_glove(struct data *ts, int enable)
 	return ret;
 }
 
+static ssize_t d2w_enable_show(struct device *dev,
+	struct device_attribute *attr, char *buf)
+{
+	return snprintf(buf, PAGE_SIZE, "%d\n", _d2wEnabled);
+}
+
+static ssize_t d2w_enable_store(struct device *dev,
+        struct device_attribute *attr, const char *buf, size_t count)
+{
+        int ret;
+
+        if (sscanf(buf, "%d", &_d2wEnabled) != 1) {
+                dev_err(dev, "Invalid (%s)", buf);
+                return -EINVAL;
+        }
+
+        return strnlen(buf, PAGE_SIZE);
+}
+
 static ssize_t glove_show(struct device *dev,
 	struct device_attribute *attr, char *buf)
 {
@@ -1409,6 +1437,7 @@ static struct device_attribute dev_attrs[] = {
 	__ATTR(driver_ver, S_IRUGO, driver_ver_show, NULL),
 	__ATTR(command, S_IWUSR, NULL, command_store),
 	__ATTR(glove, S_IRUGO | S_IWUSR, glove_show, glove_store),
+	__ATTR(d2w_enable, S_IRUGO | S_IWUSR, d2w_enable_show, d2w_enable_store),
 	__ATTR(screen_status, S_IRUGO | S_IWUSR, screen_status_show,
 						screen_status_store)
 };
