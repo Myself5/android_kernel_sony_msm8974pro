@@ -164,11 +164,6 @@
 
 static int _d2wEnabled = 0;
 
-static inline bool d2w_is_enabled()
-{
-	return ts->is_suspended && _d2wEnabled;
-}
-
 static const char * const fw_update_mode[] = {
 	[MXM_FW_UPDATE_DEFAULT] = "default",
 	[MXM_FW_UPDATE_FORCE] = "force",
@@ -854,7 +849,7 @@ static void process_report(struct data *ts, u16 *buf)
 	if (BYTEH(header->header) != MXM_ONE_PACKET_RPT)
 		goto end;
 
-	if (d2w_is_enabled()) {
+	if (d2w_is_enabled(ts)) {
 		if (header->report_id == MXM_RPT_ID_POWER_MODE
 		    && ts->is_suspended) {
 			report_wakeup_gesture(ts, header);
@@ -1390,6 +1385,11 @@ static ssize_t d2w_enable_store(struct device *dev,
         }
 
         return strnlen(buf, PAGE_SIZE);
+}
+
+static bool d2w_is_enabled(struct data *ts)
+{
+	return ts->is_suspended && _d2wEnabled;
 }
 
 static ssize_t glove_show(struct device *dev,
@@ -2652,7 +2652,7 @@ static void set_suspend_mode(struct data *ts)
 
 	ts->is_suspended = true;
 
-	if (d2w_is_enabled()) {
+	if (d2w_is_enabled(ts)) {
 		cmd_buf[2] = MXM_WAKEUP_MODE;
 		ts->ew_timeout = jiffies - 1;
 	}
@@ -2712,7 +2712,7 @@ static int suspend_noirq(struct device *dev)
 
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
-	if (ts->irq_on_suspend && d2w_is_enabled()) {
+	if (ts->irq_on_suspend && d2w_is_enabled(ts)) {
 		dev_warn(&ts->client->dev, "Need to resume\n");
 		return -EBUSY;
 	}
@@ -2777,7 +2777,7 @@ static int suspend(struct device *dev)
 
 	disable_irq(client->irq);
 
-	if (d2w_is_enabled()) {
+	if (d2w_is_enabled(ts)) {
 		enable_irq_wake(client->irq);
 		dev_dbg(&ts->client->dev, "enable irq wake\n");
 	}
@@ -2798,7 +2798,7 @@ static int resume(struct device *dev)
 
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
-	if (d2w_is_enabled()) {
+	if (d2w_is_enabled(ts)) {
 		disable_irq_wake(client->irq);
 		dev_dbg(&ts->client->dev, "disable irq wake\n");
 	}
