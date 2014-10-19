@@ -1379,14 +1379,17 @@ static ssize_t d2w_enable_show(struct device *dev,
 static ssize_t d2w_enable_store(struct device *dev,
         struct device_attribute *attr, const char *buf, size_t count)
 {
-        int ret;
-
         if (sscanf(buf, "%d", &_d2wEnabled) != 1) {
                 dev_err(dev, "Invalid (%s)", buf);
                 return -EINVAL;
         }
 
         return strnlen(buf, PAGE_SIZE);
+}
+
+static inline bool d2w_is_enabled()
+{
+	return ts->is_suspended && _d2wEnabled;
 }
 
 static ssize_t glove_show(struct device *dev,
