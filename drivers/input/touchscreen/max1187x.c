@@ -849,7 +849,7 @@ static void process_report(struct data *ts, u16 *buf)
 	if (BYTEH(header->header) != MXM_ONE_PACKET_RPT)
 		goto end;
 
-	if (device_may_wakeup(dev)) {
+	if (d2w_is_enabled()) {
 		if (header->report_id == MXM_RPT_ID_POWER_MODE
 		    && ts->is_suspended) {
 			report_wakeup_gesture(ts, header);
@@ -2649,7 +2649,7 @@ static void set_suspend_mode(struct data *ts)
 
 	ts->is_suspended = true;
 
-	if (device_may_wakeup(&ts->client->dev)) {
+	if (d2w_is_enabled()) {
 		cmd_buf[2] = MXM_WAKEUP_MODE;
 		ts->ew_timeout = jiffies - 1;
 	}
@@ -2709,7 +2709,7 @@ static int suspend_noirq(struct device *dev)
 
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
-	if (ts->irq_on_suspend && device_may_wakeup(&client->dev)) {
+	if (ts->irq_on_suspend && d2w_is_enabled()) {
 		dev_warn(&ts->client->dev, "Need to resume\n");
 		return -EBUSY;
 	}
@@ -2774,7 +2774,7 @@ static int suspend(struct device *dev)
 
 	disable_irq(client->irq);
 
-	if (device_may_wakeup(&client->dev)) {
+	if (d2w_is_enabled()) {
 		enable_irq_wake(client->irq);
 		dev_dbg(&ts->client->dev, "enable irq wake\n");
 	}
@@ -2795,7 +2795,7 @@ static int resume(struct device *dev)
 
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
-	if (device_may_wakeup(&client->dev)) {
+	if (d2w_is_enabled()) {
 		disable_irq_wake(client->irq);
 		dev_dbg(&ts->client->dev, "disable irq wake\n");
 	}
