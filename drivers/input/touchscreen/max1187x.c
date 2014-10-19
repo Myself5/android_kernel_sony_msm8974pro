@@ -372,6 +372,11 @@ static int max1187x_set_glove(struct data *ts, int enable);
 static void set_resume_mode(struct data *ts);
 static void set_suspend_mode(struct data *ts);
 
+static bool d2w_is_enabled(struct data *ts)
+{
+	return ts->is_suspended && _d2wEnabled;
+}
+
 /* I2C communication */
 static int i2c_rx_bytes(struct data *ts, u8 *buf, u16 len)
 {
@@ -1385,11 +1390,6 @@ static ssize_t d2w_enable_store(struct device *dev,
         }
 
         return strnlen(buf, PAGE_SIZE);
-}
-
-static bool d2w_is_enabled(struct data *ts)
-{
-	return ts->is_suspended && _d2wEnabled;
 }
 
 static ssize_t glove_show(struct device *dev,
