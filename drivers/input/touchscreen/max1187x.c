@@ -164,6 +164,11 @@
 
 static int _d2wEnabled = 0;
 
+static inline bool d2w_is_enabled()
+{
+	return ts->is_suspended && _d2wEnabled;
+}
+
 static const char * const fw_update_mode[] = {
 	[MXM_FW_UPDATE_DEFAULT] = "default",
 	[MXM_FW_UPDATE_FORCE] = "force",
@@ -1385,11 +1390,6 @@ static ssize_t d2w_enable_store(struct device *dev,
         }
 
         return strnlen(buf, PAGE_SIZE);
-}
-
-static inline bool d2w_is_enabled()
-{
-	return ts->is_suspended && _d2wEnabled;
 }
 
 static ssize_t glove_show(struct device *dev,
