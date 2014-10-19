@@ -826,8 +826,6 @@ static void report_wakeup_gesture(struct data *ts,
 	u16 code = header->touch_count | (header->reserved0 << 4);
 
 	dev_dbg(dev, "event: Received gesture: (0x%04X)\n", code);
-
-	printk(KERN_INFO "I AM INTO report_wakeup_gesture");
 	
 	if (time_after(jiffies, ts->ew_timeout))
 		ts->ew_timeout = jiffies + msecs_to_jiffies(
@@ -851,12 +849,9 @@ static void process_report(struct data *ts, u16 *buf)
 	if (BYTEH(header->header) != MXM_ONE_PACKET_RPT)
 		goto end;
 
-	printk(KERN_INFO "I AM IN FRONT OF device_may_wakeup");
-	if (device_can_wakeup(dev)) {
-		printk(KERN_INFO "I AM INSIDE device_may_wakeup");
+	if (device_may_wakeup(dev)) {
 		if (header->report_id == MXM_RPT_ID_POWER_MODE
 		    && ts->is_suspended) {
-			printk(KERN_INFO "I AM INSIDE THE IF IN device_may_wakeup");
 			report_wakeup_gesture(ts, header);
 			goto end;
 		}
@@ -916,8 +911,6 @@ static irqreturn_t irq_handler_soft(int irq, void *context)
 	struct data *ts = (struct data *) context;
 	int ret;
 
-	printk(KERN_INFO "I AM INSIDE irq_handler_soft");
-	
 	dev_dbg(&ts->client->dev, "%s: Enter\n", __func__);
 
 	mutex_lock(&ts->i2c_mutex);
