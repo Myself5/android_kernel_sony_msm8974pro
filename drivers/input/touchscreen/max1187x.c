@@ -1433,10 +1433,13 @@ static struct device_attribute dev_attrs[] = {
 	__ATTR(driver_ver, S_IRUGO, driver_ver_show, NULL),
 	__ATTR(command, S_IWUSR, NULL, command_store),
 	__ATTR(glove, S_IRUGO | S_IWUSR, glove_show, glove_store),
-	__ATTR(d2w_enable, S_IRUGO | S_IWUSR, d2w_enable_show, d2w_enable_store),
 	__ATTR(screen_status, S_IRUGO | S_IWUSR, screen_status_show,
 						screen_status_store)
 };
+
+static DEVICE_ATTR(doubletap2wake, (S_IRUGO | S_IWUSR), d2w_enable_show, d2w_enable_store);
+struct kobject *android_touch_kobj;
+EXPORT_SYMBOL_GPL(android_touch_kobj);
 
 static struct bin_attribute dev_attr_report = {
 		.attr = {.name = "report", .mode = S_IRUGO},
@@ -1458,6 +1461,19 @@ static int create_sysfs_entries(struct data *ts)
 		}
 		ts->sysfs_created++;
 	}
+	if (ret)
+		return ret;
+	android_touch_kobj = kobject_create_and_add("android_touch", NULL) ;
+	if (android_touch_kobj == NULL) {
+		dev_warn(&ts->client->dev, "%s: android_touch_kobj create_and_add failed\n", __func__);
+	}
+	ret = sysfs_create_file(android_touch_kobj, &dev_attr_doubletap2wake.attr);
+	if (ret) {
+		dev_warn(&ts->client->dev, "%s: sysfs_create_file failed for doubletap2wake\n", __func__);
+	} else {
+		ts->sysfs_created++;
+	}
+
 	return ret;
 }
 
@@ -1468,6 +1484,8 @@ static void remove_sysfs_entries(struct data *ts)
 	for (i = 0; i < ARRAY_SIZE(dev_attrs); i++)
 		if (ts->sysfs_created && ts->sysfs_created--)
 			device_remove_file(&ts->client->dev, &dev_attrs[i]);
+	if (ts->sysfs_created && ts->sysfs_created--)
+		device_remove_file(&ts->client->dev, &dev_attr_doubletap2wake);
 }
 
 /* Send command to chip */
